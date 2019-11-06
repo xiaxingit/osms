@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.school.dao.homework.HomeworkCoursewareMapper">
+  <resultMap id="BaseResultMap" type="com.one.school.entity.homework.HomeworkCourseware">
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="courseware_name" jdbcType="VARCHAR" property="coursewareName" />
+    <result column="courseware_type" jdbcType="VARCHAR" property="coursewareType" />
+    <result column="is_done" jdbcType="INTEGER" property="isDone" />
+  </resultMap>
+  <insert id="insert" parameterType="com.one.school.entity.homework.HomeworkCourseware">
+    insert into t_osms_homework_courseware (student_id, courseware_name, courseware_type, 
+      is_done)
+    values (#{studentId,jdbcType=VARCHAR}, #{coursewareName,jdbcType=VARCHAR}, #{coursewareType,jdbcType=VARCHAR}, 
+      #{isDone,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.one.school.entity.homework.HomeworkCourseware">
+    insert into t_osms_homework_courseware
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="coursewareName != null">
+        courseware_name,
+      </if>
+      <if test="coursewareType != null">
+        courseware_type,
+      </if>
+      <if test="isDone != null">
+        is_done,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewareName != null">
+        #{coursewareName,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewareType != null">
+        #{coursewareType,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null">
+        #{isDone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByStudentId" resultMap="BaseResultMap" >
+    select * from t_osms_homework_courseware where student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStudentIdAndCourseName" resultMap="BaseResultMap" >
+    select * from t_osms_homework_courseware
+    where student_id = #{studentId,jdbcType=VARCHAR}
+    and courseware_name = #{coursewareName,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <update id="updateStatus" >
+    update t_osms_homework_courseware set is_done = #{isDone,jdbcType=INTEGER}
+    where student_id = #{studentId,jdbcType=VARCHAR}
+    and courseware_name = #{coursewareName,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

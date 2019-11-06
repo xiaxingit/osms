@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.school.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.one.school.entity.Student">
+    <id column="identity_id" jdbcType="VARCHAR" property="identityId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="speciality_id" jdbcType="INTEGER" property="specialityId" />
+    <result column="speciality_name" jdbcType="VARCHAR" property="specialityName" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="speciality_test_num" jdbcType="INTEGER" property="specialityTestNum" />
+    <result column="speciality_test_score" jdbcType="INTEGER" property="specialityTestScore" />
+    <result column="public_test_num" jdbcType="INTEGER" property="publicTestNum" />
+    <result column="public_test_score" jdbcType="INTEGER" property="publicTestScore" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_time_str" jdbcType="VARCHAR" property="createTimeStr" />
+    <result column="public_time_consuming" jdbcType="INTEGER" property="publicTimeConsuming" />
+    <result column="speciality_time_consuming" jdbcType="INTEGER" property="specialityTimeConsuming" />
+    <result column="is_answer" jdbcType="INTEGER" property="isAnswer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    identity_id, name, speciality_id, speciality_name, school_id, school_name, speciality_test_num, 
+    speciality_test_score, public_test_num, public_test_score, create_time, public_time_consuming, speciality_time_consuming
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_osms_student
+    where identity_id = #{identityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_osms_student
+    where identity_id = #{identityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.one.school.entity.Student">
+    insert into t_osms_student (identity_id, name, speciality_id, 
+      speciality_name, school_id, school_name, 
+      speciality_test_num, speciality_test_score, 
+      public_test_num, public_test_score, create_time
+      )
+    values (#{identityId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{specialityId,jdbcType=INTEGER}, 
+      #{specialityName,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, 
+      #{specialityTestNum,jdbcType=INTEGER}, #{specialityTestScore,jdbcType=INTEGER}, 
+      #{publicTestNum,jdbcType=INTEGER}, #{publicTestScore,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.one.school.entity.Student">
+    insert into t_osms_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="specialityId != null">
+        speciality_id,
+      </if>
+      <if test="specialityName != null">
+        speciality_name,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="schoolName != null">
+        school_name,
+      </if>
+      <if test="specialityTestNum != null">
+        speciality_test_num,
+      </if>
+      <if test="specialityTestScore != null">
+        speciality_test_score,
+      </if>
+      <if test="publicTestNum != null">
+        public_test_num,
+      </if>
+      <if test="publicTestScore != null">
+        public_test_score,
+      </if>
+        create_time,
+      <if test="publicTimeConsuming != null" >
+        public_time_consuming,
+      </if>
+      <if test="specialityTimeConsuming != null" >
+        speciality_time_consuming,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="identityId != null">
+        #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specialityId != null">
+        #{specialityId,jdbcType=INTEGER},
+      </if>
+      <if test="specialityName != null">
+        #{specialityName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null">
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="specialityTestNum != null">
+        #{specialityTestNum,jdbcType=INTEGER},
+      </if>
+      <if test="specialityTestScore != null">
+        #{specialityTestScore,jdbcType=INTEGER},
+      </if>
+      <if test="publicTestNum != null">
+        #{publicTestNum,jdbcType=INTEGER},
+      </if>
+      <if test="publicTestScore != null">
+        #{publicTestScore,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="publicTimeConsuming != null" >
+        #{publicTimeConsuming},
+      </if>
+      <if test="specialityTimeConsuming != null" >
+        #{specialityTimeConsuming},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.one.school.entity.Student">
+    update t_osms_student
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specialityId != null">
+        speciality_id = #{specialityId,jdbcType=INTEGER},
+      </if>
+      <if test="specialityName != null">
+        speciality_name = #{specialityName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null">
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="specialityTestNum != null">
+        speciality_test_num = #{specialityTestNum,jdbcType=INTEGER},
+      </if>
+      <if test="specialityTestScore != null">
+        speciality_test_score = #{specialityTestScore,jdbcType=INTEGER},
+      </if>
+      <if test="publicTestNum != null">
+        public_test_num = #{publicTestNum,jdbcType=INTEGER},
+      </if>
+      <if test="publicTestScore != null">
+        public_test_score = #{publicTestScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicTimeConsuming != null" >
+        public_time_consuming = #{publicTimeConsuming},
+      </if>
+      <if test="specialityTimeConsuming != null" >
+        speciality_time_consuming = #{specialityTimeConsuming},
+      </if>
+      <if test="isAnswer != null" >
+        is_answer = #{isAnswer},
+      </if>
+    </set>
+    where identity_id = #{identityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.one.school.entity.Student">
+    update t_osms_student
+    set name = #{name,jdbcType=VARCHAR},
+      speciality_id = #{specialityId,jdbcType=INTEGER},
+      speciality_name = #{specialityName,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      school_name = #{schoolName,jdbcType=VARCHAR},
+      speciality_test_num = #{specialityTestNum,jdbcType=INTEGER},
+      speciality_test_score = #{specialityTestScore,jdbcType=INTEGER},
+      public_test_num = #{publicTestNum,jdbcType=INTEGER},
+      public_test_score = #{publicTestScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where identity_id = #{identityId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select *,date_format(create_time,'%Y-%m-%d %H:%i:%s') create_time_str from t_osms_student
+    order by create_time_str desc
+  </select>
+
+  <select id="incompleteStudent" resultMap="BaseResultMap" >
+    select * from t_osms_student t
+    <![CDATA[
+    where (t.speciality_test_score < 85 and t.speciality_test_num < 2)
+    or (t.public_test_score < 85 and t.public_test_num < 2)
+    ]]>
+    and t.is_answer = 0
+    <if test="ids == null" >
+      and 1 = 2
+    </if>
+    <foreach collection="ids" index="index" item="item" open="and t.speciality_id in (" close=")" separator="," >
+      #{item}
+    </foreach>
+  </select>
+
+  <update id="updateIsAnswerValue" >
+    update t_osms_student set is_answer = #{isAnswer} where speciality_id = #{identityId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

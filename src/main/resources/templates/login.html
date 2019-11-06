@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <form action="/osms/login" method="post" >
+        <div class="admin-login-background">
+                <div>
+                    <i class="layui-icon layui-icon-username admin-icon admin-icon-username"></i>
+                    <input type="text" name="userName" placeholder="请输入用户名"
+                           autocomplete="off"
+                           class="layui-input admin-input admin-input-username">
+                </div>
+                <div>
+                    <i class="layui-icon layui-icon-password admin-icon admin-icon-password"></i>
+                    <input type="password" name="userPwd"
+                           placeholder="请输入密码"
+                           autocomplete="off"
+                           class="layui-input admin-input admin-input-password">
+                </div>
+                <div th:text="${loginMsg}" class="login-result"></div>
+                <button class="layui-btn admin-button" lay-submit lay-filter+="login" >登陆</button>
+        </div>
+    </form>
+
+<script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('form', function() {
+        var form = layui.form;
+        form.on('submit(login)', function(data){
+            return true;
+        });
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>选择学生</title>
+</head>
+<body >
+    <div style="text-align: center; margin-top: 100px;">
+        <span>请选择需要学习的学生：</span>
+        <input type ="checkbox" name="studentIds"
+               th:each="s:${students.list}"
+               th:value="${s.studentId}"
+               th:text="${s.studentName}">
+        &nbsp;&nbsp;&nbsp;
+        <button id="startBtn" type="button" class="layui-btn layui-btn-disabled" onclick="goHomework()" >开始自动学习</button>
+    </div>
+
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        function goHomework() {
+            var ids = document.getElementsByName('studentIds');
+            var value = new Array();
+            for(var i = 0; i < ids.length; i++){
+                if(ids[i].checked)
+                    value.push(ids[i].value);
+            }
+            if(value.length === 0){
+                alert("请先勾选学生列表，再进行自动学习");
+                return;
+            }
+            $("#startBtn").attr("disabled","disabled");
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8708/osms/homework/auto?studentIds=" + value.toString(),
+                dataType: "json",
+                success: function(data){
+                    location.href = "http://localhost:8708/osms/homework/student/list";
+//                    alert(data);
+                },
+                error:function(e){
+                    alert(e);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.school.dao.TestPaperMapper">
+  <resultMap id="BaseResultMap" type="com.one.school.entity.TestPaper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="question_code" jdbcType="VARCHAR" property="questionCode" />
+    <result column="right_answers_code" jdbcType="VARCHAR" property="rightAnswersCode" />
+    <result column="wrong_answers_code" jdbcType="VARCHAR" property="wrongAnswersCode" />
+    <result column="question_type" jdbcType="VARCHAR" property="questionType" />
+    <result column="question_score" jdbcType="INTEGER" property="questionScore" />
+    <result column="test_paper_type" jdbcType="VARCHAR" property="testPaperType" />
+    <result column="test_paper_class" jdbcType="VARCHAR" property="testPaperClass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, question_code, right_answers_code, wrong_answers_code, question_type, question_score, 
+    test_paper_type, test_paper_class
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_osms_test_paper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_osms_test_paper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.one.school.entity.TestPaper">
+    insert into t_osms_test_paper (id, question_code, right_answers_code, 
+      wrong_answers_code, question_type, question_score, 
+      test_paper_type, test_paper_class)
+    values (#{id,jdbcType=INTEGER}, #{questionCode,jdbcType=VARCHAR}, #{rightAnswersCode,jdbcType=VARCHAR}, 
+      #{wrongAnswersCode,jdbcType=VARCHAR}, #{questionType,jdbcType=VARCHAR}, #{questionScore,jdbcType=INTEGER}, 
+      #{testPaperType,jdbcType=VARCHAR}, #{testPaperClass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.one.school.entity.TestPaper">
+    insert into t_osms_test_paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="questionCode != null">
+        question_code,
+      </if>
+      <if test="rightAnswersCode != null">
+        right_answers_code,
+      </if>
+      <if test="wrongAnswersCode != null">
+        wrong_answers_code,
+      </if>
+      <if test="questionType != null">
+        question_type,
+      </if>
+      <if test="questionScore != null">
+        question_score,
+      </if>
+      <if test="testPaperType != null">
+        test_paper_type,
+      </if>
+      <if test="testPaperClass != null">
+        test_paper_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionCode != null">
+        #{questionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rightAnswersCode != null">
+        #{rightAnswersCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wrongAnswersCode != null">
+        #{wrongAnswersCode,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null">
+        #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="questionScore != null">
+        #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperType != null">
+        #{testPaperType,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperClass != null">
+        #{testPaperClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.one.school.entity.TestPaper">
+    update t_osms_test_paper
+    <set>
+      <if test="questionCode != null">
+        question_code = #{questionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rightAnswersCode != null">
+        right_answers_code = #{rightAnswersCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wrongAnswersCode != null">
+        wrong_answers_code = #{wrongAnswersCode,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null">
+        question_type = #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="questionScore != null">
+        question_score = #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperType != null">
+        test_paper_type = #{testPaperType,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperClass != null">
+        test_paper_class = #{testPaperClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.one.school.entity.TestPaper">
+    update t_osms_test_paper
+    set question_code = #{questionCode,jdbcType=VARCHAR},
+      right_answers_code = #{rightAnswersCode,jdbcType=VARCHAR},
+      wrong_answers_code = #{wrongAnswersCode,jdbcType=VARCHAR},
+      question_type = #{questionType,jdbcType=VARCHAR},
+      question_score = #{questionScore,jdbcType=INTEGER},
+      test_paper_type = #{testPaperType,jdbcType=VARCHAR},
+      test_paper_class = #{testPaperClass,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByType" resultMap="BaseResultMap" >
+    select * from t_osms_test_paper where test_paper_type = #{type}
+  </select>
+
+</mapper>

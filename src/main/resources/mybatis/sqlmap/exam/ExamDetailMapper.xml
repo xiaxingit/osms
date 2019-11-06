@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.school.dao.exam.ExamDetailMapper">
+  <resultMap id="BaseResultMap" type="com.one.school.entity.exam.ExamDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="test_paper_number" jdbcType="VARCHAR" property="testPaperNumber" />
+    <result column="test_paper_name" jdbcType="VARCHAR" property="testPaperName" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="grade_season" jdbcType="VARCHAR" property="gradeSeason" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="student_type" jdbcType="VARCHAR" property="studentType" />
+    <result column="student_category" jdbcType="VARCHAR" property="studentCategory" />
+    <result column="class_code" jdbcType="VARCHAR" property="classCode" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <result column="instructor" jdbcType="VARCHAR" property="instructor" />
+    <result column="branch_code" jdbcType="VARCHAR" property="branchCode" />
+    <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+    <result column="seat_number" jdbcType="VARCHAR" property="seatNumber" />
+    <result column="exam_room" jdbcType="VARCHAR" property="examRoom" />
+    <result column="exam_name" jdbcType="VARCHAR" property="examName" />
+    <result column="exam_address" jdbcType="VARCHAR" property="examAddress" />
+    <result column="exam_date" jdbcType="VARCHAR" property="examDate" />
+    <result column="exam_time" jdbcType="VARCHAR" property="examTime" />
+    <result column="assessment_type" jdbcType="VARCHAR" property="assessmentType" />
+    <result column="exam_type" jdbcType="VARCHAR" property="examType" />
+    <result column="is_exam_stay" jdbcType="VARCHAR" property="isExamStay" />
+    <result column="is_own_distribution" jdbcType="VARCHAR" property="isOwnDistribution" />
+    <result column="exam_source" jdbcType="VARCHAR" property="examSource" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, test_paper_number, test_paper_name, student_id, student_name, grade_season, major, 
+    student_type, student_category, class_code, class_name, instructor, branch_code, 
+    branch_name, seat_number, exam_room, exam_name, exam_address, exam_date, exam_time, 
+    assessment_type, exam_type, is_exam_stay, is_own_distribution, exam_source, source, 
+    create_time, create_user_id, update_time, update_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_osms_exam_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_osms_exam_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.one.school.entity.exam.ExamDetail">
+    insert into t_osms_exam_detail (id, test_paper_number, test_paper_name, 
+      student_id, student_name, grade_season, 
+      major, student_type, student_category, 
+      class_code, class_name, instructor, 
+      branch_code, branch_name, seat_number, 
+      exam_room, exam_name, exam_address, 
+      exam_date, exam_time, assessment_type, 
+      exam_type, is_exam_stay, is_own_distribution, 
+      exam_source, source, create_time, 
+      create_user_id, update_time, update_user_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{testPaperNumber,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, 
+      #{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{gradeSeason,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{studentType,jdbcType=VARCHAR}, #{studentCategory,jdbcType=VARCHAR}, 
+      #{classCode,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR}, 
+      #{branchCode,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, #{seatNumber,jdbcType=VARCHAR}, 
+      #{examRoom,jdbcType=VARCHAR}, #{examName,jdbcType=VARCHAR}, #{examAddress,jdbcType=VARCHAR}, 
+      #{examDate,jdbcType=VARCHAR}, #{examTime,jdbcType=VARCHAR}, #{assessmentType,jdbcType=VARCHAR}, 
+      #{examType,jdbcType=VARCHAR}, #{isExamStay,jdbcType=VARCHAR}, #{isOwnDistribution,jdbcType=VARCHAR}, 
+      #{examSource,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.one.school.entity.exam.ExamDetail">
+    insert into t_osms_exam_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="testPaperNumber != null">
+        test_paper_number,
+      </if>
+      <if test="testPaperName != null">
+        test_paper_name,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="gradeSeason != null">
+        grade_season,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="studentType != null">
+        student_type,
+      </if>
+      <if test="studentCategory != null">
+        student_category,
+      </if>
+      <if test="classCode != null">
+        class_code,
+      </if>
+      <if test="className != null">
+        class_name,
+      </if>
+      <if test="instructor != null">
+        instructor,
+      </if>
+      <if test="branchCode != null">
+        branch_code,
+      </if>
+      <if test="branchName != null">
+        branch_name,
+      </if>
+      <if test="seatNumber != null">
+        seat_number,
+      </if>
+      <if test="examRoom != null">
+        exam_room,
+      </if>
+      <if test="examName != null">
+        exam_name,
+      </if>
+      <if test="examAddress != null">
+        exam_address,
+      </if>
+      <if test="examDate != null">
+        exam_date,
+      </if>
+      <if test="examTime != null">
+        exam_time,
+      </if>
+      <if test="assessmentType != null">
+        assessment_type,
+      </if>
+      <if test="examType != null">
+        exam_type,
+      </if>
+      <if test="isExamStay != null">
+        is_exam_stay,
+      </if>
+      <if test="isOwnDistribution != null">
+        is_own_distribution,
+      </if>
+      <if test="examSource != null">
+        exam_source,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperNumber != null">
+        #{testPaperNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null">
+        #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeSeason != null">
+        #{gradeSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="studentType != null">
+        #{studentType,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCategory != null">
+        #{studentCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="classCode != null">
+        #{classCode,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        #{instructor,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null">
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNumber != null">
+        #{seatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examRoom != null">
+        #{examRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="examName != null">
+        #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="examAddress != null">
+        #{examAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null">
+        #{examDate,jdbcType=VARCHAR},
+      </if>
+      <if test="examTime != null">
+        #{examTime,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentType != null">
+        #{assessmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="examType != null">
+        #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="isExamStay != null">
+        #{isExamStay,jdbcType=VARCHAR},
+      </if>
+      <if test="isOwnDistribution != null">
+        #{isOwnDistribution,jdbcType=VARCHAR},
+      </if>
+      <if test="examSource != null">
+        #{examSource,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.one.school.entity.exam.ExamDetail">
+    update t_osms_exam_detail
+    <set>
+      <if test="testPaperNumber != null">
+        test_paper_number = #{testPaperNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null">
+        test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeSeason != null">
+        grade_season = #{gradeSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="studentType != null">
+        student_type = #{studentType,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCategory != null">
+        student_category = #{studentCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="classCode != null">
+        class_code = #{classCode,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        instructor = #{instructor,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        branch_code = #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null">
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNumber != null">
+        seat_number = #{seatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examRoom != null">
+        exam_room = #{examRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="examName != null">
+        exam_name = #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="examAddress != null">
+        exam_address = #{examAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null">
+        exam_date = #{examDate,jdbcType=VARCHAR},
+      </if>
+      <if test="examTime != null">
+        exam_time = #{examTime,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentType != null">
+        assessment_type = #{assessmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="examType != null">
+        exam_type = #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="isExamStay != null">
+        is_exam_stay = #{isExamStay,jdbcType=VARCHAR},
+      </if>
+      <if test="isOwnDistribution != null">
+        is_own_distribution = #{isOwnDistribution,jdbcType=VARCHAR},
+      </if>
+      <if test="examSource != null">
+        exam_source = #{examSource,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.one.school.entity.exam.ExamDetail">
+    update t_osms_exam_detail
+    set test_paper_number = #{testPaperNumber,jdbcType=VARCHAR},
+      test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      grade_season = #{gradeSeason,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      student_type = #{studentType,jdbcType=VARCHAR},
+      student_category = #{studentCategory,jdbcType=VARCHAR},
+      class_code = #{classCode,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      instructor = #{instructor,jdbcType=VARCHAR},
+      branch_code = #{branchCode,jdbcType=VARCHAR},
+      branch_name = #{branchName,jdbcType=VARCHAR},
+      seat_number = #{seatNumber,jdbcType=VARCHAR},
+      exam_room = #{examRoom,jdbcType=VARCHAR},
+      exam_name = #{examName,jdbcType=VARCHAR},
+      exam_address = #{examAddress,jdbcType=VARCHAR},
+      exam_date = #{examDate,jdbcType=VARCHAR},
+      exam_time = #{examTime,jdbcType=VARCHAR},
+      assessment_type = #{assessmentType,jdbcType=VARCHAR},
+      exam_type = #{examType,jdbcType=VARCHAR},
+      is_exam_stay = #{isExamStay,jdbcType=VARCHAR},
+      is_own_distribution = #{isOwnDistribution,jdbcType=VARCHAR},
+      exam_source = #{examSource,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByTestPaperNumberAndStudentId" resultMap="BaseResultMap" >
+    select * from t_osms_exam_detail
+    where test_paper_number = #{testPaperNumber}
+    and student_id = #{studentId}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select * from t_osms_exam_detail
+    where 1 = 1
+    <if test="studentId != null and studentId != ''" >
+      and student_id like concat('%', #{studentId}, '%')
+    </if>
+    <if test="studentName != null and studentName != ''" >
+      and student_name like concat('%', #{studentName}, '%')
+    </if>
+  </select>
+</mapper>

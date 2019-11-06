@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>入学测试</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<style>
+    .select-school{
+        height: 38px;
+        width: 140px;
+    }
+</style>
+
+<body class="layui-layout-body">
+    <div style="height:800px; overflow:auto">
+        <div>&nbsp;&nbsp;&nbsp;</div>
+
+        <div style="text-align: center">
+            <select id="schoolId" class="select-school" disabled="disabled" >
+                <option value="31001">虹口分校</option>
+                <option value="31002">闵行二分校</option>
+                <option value="31003">宝山分校</option>
+                <option value="31004">浦东东校</option>
+                <option value="31005">闵行一分校</option>
+                <option value="31006">金山分校</option>
+                <option value="31007">松江分校</option>
+                <option value="31008">浦东南校</option>
+                <option value="31009">奉贤分校</option>
+                <option value="31010">青浦分校</option>
+                <option value="31011">崇明分校</option>
+                <option value="31012">嘉定分校</option>
+                <option value="31013">水产分校</option>
+                <option value="31014">普晟分校</option>
+                <option value="31020">百联集团分校</option>
+                <option value="31025">新世界集团分校</option>
+                <option value="31026">航空运输学院</option>
+                <option value="31028" selected>企业家联合会</option>
+                <option value="31030">杨浦分校</option>
+                <option value="31031">黄浦分校</option>
+                <option value="31032">普陀分校</option>
+                <option value="31034">西南进修学院分校</option>
+                <option value="31036">浦东西校</option>
+                <option value="31037">上海慧承文化进修学院教学点</option>
+                <option value="31039">商业学校分校</option>
+                <option value="31040">济光教学点</option>
+                <option value="31043">时尚学院</option>
+                <option value="31045">工程大分校</option>
+                <option value="31057">沪东中华教学点</option>
+                <option value="31058">上海贸易学校教学点</option>
+                <option value="31065">邮电分校</option>
+                <option value="31069">新知教学点</option>
+                <option value="31070">文化旅游学院</option>
+                <option value="31074">泽达教学点（筹）</option>
+                <option value="31075">交大昂立分校</option>
+                <option value="31077">公共管理学院</option>
+                <option value="31078">经济管理学院</option>
+                <option value="31081">人文学院</option>
+                <option value="31082">理工学院</option>
+                <option value="31086">外经贸分校</option>
+                <option value="31088">徐汇财贸分校</option>
+                <option value="31089">建设分校</option>
+                <option value="31090">远驰专修学院</option>
+                <option value="31092">静安分校</option>
+                <option value="31093">徐汇分校</option>
+                <option value="31097">石化工业学校培训中心教学点（筹）</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+            &nbsp;&nbsp;&nbsp;
+            <button id="startBtn" type="button" class="layui-btn layui-btn-disabled" onclick="startPaper()" disabled="disabled" >开始答题</button>
+            <input type="hidden" id="ids" th:value="${ids}">
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="layui-btn" onclick="refreshResult()" >刷新结果</button>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="layui-btn" onclick="fileDownload()" >下载结果</button>
+        </div>
+
+        <div>&nbsp;&nbsp;&nbsp;</div>
+
+        <div style="text-align: center">
+            <table class="layui-table" style="width: 90%; ">
+                <!--<colgroup>-->
+                <!--<col width="150">-->
+                <!--<col width="200">-->
+                <!--<col>-->
+                <!--</colgroup>-->
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>身份证</th>
+                    <th>报读分校</th>
+                    <th>专业</th>
+                    <th>公共基础课得分</th>
+                    <th>耗时(分)</th>
+                    <th>专业基础课得分</th>
+                    <th>耗时(分)</th>
+                    <th>答题时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student:${students}">
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.identityId}"></td>
+                    <td th:text="${student.schoolName}"></td>
+                    <td th:text="${student.specialityName}"></td>
+                    <td th:text="${student.publicTestScore}"></td>
+                    <td th:text="${student.publicTimeConsuming}"></td>
+                    <td th:text="${student.specialityTestScore}"></td>
+                    <td th:text="${student.specialityTimeConsuming}"></td>
+                    <td th:text="${student.createTimeStr}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>&nbsp;&nbsp;&nbsp;</div>
+    </div>
+
+    <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        var baseUrl = "http://106.15.109.55:8708/osms";
+//        var baseUrl = "http://localhost:8708/osms";
+
+        $(function () {
+            var ids = $("#ids").val();
+            if(ids){
+                $("#startBtn").removeClass("layui-btn-disabled");
+                $("#startBtn").removeAttr("disabled");
+            }
+        })
+        layui.use('upload', function(){
+            var $ = layui.jquery
+                ,upload = layui.upload;
+
+            //选完文件后不自动上传
+            upload.render({
+                method: 'post',
+                accept: 'file',
+                elem: '#test8',
+                data: {
+                    schoolId: function () {
+                        return $('#schoolId option:selected').val();
+                    },
+                    schoolName: function () {
+                        return $('#schoolId option:selected').text();
+                    }
+                },
+                url: '/osms/paper/file/upload',
+                done: function(res){
+                    if(res.code == 1){
+                        location.href = window.baseUrl +"/paper?ids=" + res.data;
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+        });
+        
+        function startPaper() {
+            var ids = $("#ids").val();
+            $.ajax({
+                type: "GET",
+                url: window.baseUrl + "/paper/start?ids=" + ids,
+                dataType: "json",
+                success: function(data){
+                    $("#startBtn").addClass("layui-btn-disabled");
+                    $("#startBtn").attr("disabled","disabled");
+                    layer.msg(data.msg);
+                },
+                error:function(e){
+                    layer.msg(data.msg,{time:5000});
+                }
+            });
+        }
+        
+        function fileDownload() {
+            location.href = window.baseUrl + "/paper/file/download";
+        }
+
+        function refreshResult() {
+            location.href = window.baseUrl + "/paper";
+        }
+
+    </script>
+</body>
+
+</html>

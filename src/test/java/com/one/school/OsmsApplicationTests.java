@@ -11,6 +11,9 @@ public class OsmsApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
+
+
 	}
 
 }
